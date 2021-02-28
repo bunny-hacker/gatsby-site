@@ -1,4 +1,6 @@
 'use strict'
+const dotenv = require("dotenv");
+dotenv.config({path: ".env.development"});
 
 module.exports = {
   siteMetadata: {
@@ -20,30 +22,6 @@ module.exports = {
         path: `${__dirname}/src/content`
       }
     },
-    {
-      resolve: 'gatsby-transformer-remark',
-      options: {
-        plugins: [
-          {
-            resolve: 'gatsby-remark-responsive-iframe',
-            options: {
-              wrapperStyle: 'margin-bottom: 1rem'
-            }
-          },
-          'gatsby-remark-prismjs',
-          'gatsby-remark-copy-linked-files',
-          'gatsby-remark-smartypants',
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 1140,
-              quality: 90,
-              linkImagesToOriginal: false
-            }
-          }
-        ]
-      }
-    },
     'gatsby-transformer-json',
     {
       resolve: 'gatsby-plugin-canonical-urls',
@@ -55,6 +33,14 @@ module.exports = {
     'gatsby-plugin-typescript',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-react-helmet'
+    'gatsby-plugin-react-helmet',
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `8wa8mfmne9v1`,
+        // Learn about environment variables: https://gatsby.dev/env-vars
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+      },
+    },
   ]
 }
